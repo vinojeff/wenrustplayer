@@ -53,6 +53,12 @@ async function openFileDialog() {
         fileInfoEl.classList.remove("hidden");
       }
       console.log("打开文件:", selected);
+
+      // 最大化窗口
+      await maximizeWindow();
+
+      // 显示对应的媒体图标
+      showMediaIcon(selected);
     } else {
       console.log("用户取消了文件选择或返回了无效值");
     }
@@ -104,6 +110,44 @@ function closeMenu() {
   if (dropdown) {
     dropdown.classList.remove("show");
   }
+}
+
+// 显示媒体图标
+function showMediaIcon(filePath: string) {
+  const extension = filePath.split('.').pop()?.toLowerCase() || '';
+  const mediaPlayer = document.getElementById('media-player');
+  const audioIcon = document.getElementById('audio-icon');
+  const videoIcon = document.getElementById('video-icon');
+
+  // 音频文件扩展名
+  const audioExtensions = ['mp3', 'flac', 'wav', 'aac', 'ogg', 'm4a', 'wma'];
+  // 视频文件扩展名
+  const videoExtensions = ['mp4', 'mkv', 'avi', 'mov', 'wmv', 'flv', 'webm', 'm4v'];
+
+  // 隐藏所有图标
+  if (audioIcon) audioIcon.style.display = 'none';
+  if (videoIcon) videoIcon.style.display = 'none';
+
+  // 根据文件类型显示对应图标
+  if (audioExtensions.includes(extension)) {
+    if (audioIcon) audioIcon.style.display = 'block';
+    console.log('显示音频图标');
+  } else if (videoExtensions.includes(extension)) {
+    if (videoIcon) videoIcon.style.display = 'block';
+    console.log('显示视频图标');
+  } else {
+    // 默认显示音频图标
+    if (audioIcon) audioIcon.style.display = 'block';
+    console.log('显示默认图标');
+  }
+
+  // 显示播放器容器
+  if (mediaPlayer) {
+    mediaPlayer.classList.add('active');
+  }
+
+  // 切换到播放器模式
+  document.body.classList.add('player-mode');
 }
 
 // 初始化事件监听

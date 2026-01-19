@@ -326,6 +326,39 @@ h1 {
   word-break: break-all;
 }
 
+/* 媒体播放区域 */
+.media-player-container {
+  position: absolute;
+  top: calc(var(--titlebar-height) + 36px);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #000000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.media-player-container.active {
+  display: flex;
+}
+
+.media-icon {
+  color: #666666;
+  width: 120px;
+  height: 120px;
+}
+
+/* 播放器模式 - 隐藏主内容 */
+body.player-mode .menubar,
+body.player-mode .main-content {
+  display: none;
+}
+
+body.player-mode .media-player-container {
+  display: flex;
+}
+
 /* 按钮样式通用 */
 button {
   outline: none;
